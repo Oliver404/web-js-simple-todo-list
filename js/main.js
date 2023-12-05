@@ -30,7 +30,20 @@ function clearTaskForm() {
 
 // ####### Tasks List #######
 function listNewTask() {
-    lstTasks.appendChild(document.createElement("li")).textContent = tasks[tasks.length - 1];
+    lstTasks.appendChild(createTaskItem(tasks[tasks.length - 1]));
+}
+
+function createTaskItem(text) {
+    const li = document.createElement('li');
+    const check = document.createElement('input');
+    const label = document.createElement('label');
+    check.type = 'checkbox';
+    label.textContent = text;
+    
+    li.appendChild(check);
+    li.appendChild(label);
+
+    return li;
 }
 
 // ####### Logic #######
