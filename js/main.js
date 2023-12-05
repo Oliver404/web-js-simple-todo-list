@@ -1,10 +1,11 @@
 
 // HTML
 const taskForm = document.getElementById('frm-task');
+const lstTasks = document.getElementById('lst-tasks');
 // consts and vars
-const lstTask = [];
+const tasks = [];
 
-// On load website
+// ####### On Init ####### 
 window.onload = onLoad;
 
 function onLoad() {
@@ -15,6 +16,7 @@ function initView() {
     taskForm.addEventListener('submit', onSubmitTaskForm);
 }
 
+// ####### Task Form #######
 function onSubmitTaskForm(e) {
     const formData = new FormData(taskForm);
 
@@ -22,7 +24,33 @@ function onSubmitTaskForm(e) {
     addTask(formData.get('task'));
 }
 
+function clearTaskForm() {
+    taskForm.reset();
+}
+
+// ####### Tasks List #######
+function listNewTask() {
+    lstTasks.appendChild(createTaskItem(tasks[tasks.length - 1]));
+}
+
+function createTaskItem(text) {
+    const li = document.createElement('li');
+    const check = document.createElement('input');
+    const label = document.createElement('label');
+    check.type = 'checkbox';
+    label.textContent = text;
+    
+    li.appendChild(check);
+    li.appendChild(label);
+
+    return li;
+}
+
+// ####### Logic #######
 function addTask(task) {
-    lstTask.push(task);
-    console.log(lstTask); //TODO: Delete line
+    if (task) {
+        tasks.push(task);
+        taskForm.reset();
+        listNewTask();
+    }
 }
